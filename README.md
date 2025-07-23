@@ -1,4 +1,4 @@
-# Documentation du plugin Post-it
+# Documentation du plugin Post_it
 ## Ce plugin ajoute un pense-bête au bout de la barre de navigation de Jeedom.
 ## Utilisation
 Cliquez sur l'icône dans la barre de navigation pour ouvrir/fermer le post-it.  
