@@ -2,7 +2,7 @@
 	"id": "post_it",
 	"name": "Post_It",
 	"author": "Pax24",
-	"description": "Ajoute un pense-bête au bout de la barre de navigation de Jeedom qui permet de noter et consulter rapidement des informations temporaires au fil de la navigation. Options pour 1 ou 2 notes, compteur, bouton fermer, taille max des notes. Simple et efficace !",
+	"description": "Ajoute un pense-bête (Post It) au bout de la barre de navigation de Jeedom qui permet de noter et consulter rapidement des informations temporaires au fil de la navigation. Options pour 1 ou 2 notes, compteur, bouton fermer, taille max des notes. Simple et efficace !",
 	"version": "1.0",
 	"licence": "GPLv3",
 	"require": "4.0",
@@ -11,8 +11,8 @@
 	"hasOwnDeamon": false,
 	"maxDependancyInstallTime": 0,
 	"eventjs": 1,
-	"changelog" : "https://github.com/Pax24fr/Post-It/blob/main/CHANGELOG.md",
-	"documentation" : "https://pax24fr.github.io/Post-It/",
+	"changelog" : "https://github.com/Pax24fr/Post_It/blob/main/CHANGELOG.md",
+	"documentation" : "https://github.com/Pax24fr/Post_It/blob/main/README.md",
 	"language" : ["fr_FR"],
 	"compatibility": ["miniplus","smart","rpi","docker","diy","v4"]
 }
