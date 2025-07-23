@@ -37,18 +37,18 @@ if (!isConnect()) {
             <?php foreach ([
                 'bouton_fermer' => 'Afficher le bouton Fermer',
                 'deux_notes' => 'Activer la 2ème note',
-                'compteur' => 'Afficher le compteur'
+                'compteur' => 'Afficher le compteur de caractères'
             ] as $key => $label): ?>
                 <div class="form-group">
-                    <label class="col-md-4 control-label"><?= $label ?></label>
-                    <div class="col-md-7">
+                    <label class="col-md-5 control-label"><?= $label ?></label>
+                    <div class="col-md-4">
                         <input type="checkbox" class="configKey" data-l1key="<?= $key ?>" <?= $configs[$key] ? 'checked' : '' ?>>
                     </div>
                 </div>
             <?php endforeach; ?>
 			<!-- Champs select pour les caractères max -->
 			<div class="form-group">
-				<label class="col-md-4 control-label">Caractères max par post It
+				<label class="col-md-5 control-label">Caractères max par post It
 				<sup><i class="fas fa-question-circle tooltips" title="4 999: {{5ko, 2 pages A4, très léger}}<br>9 999: {{10ko, 5 pages A4, assez léger (défaut)}}<br>49 999: {{50ko, 20 pages A4, peut provoquer des ralentissements lors de l'enregistrement}}<br>99 999: {{100ko, 50 pages A4, peut provoquer de gros ralentissements lors de l'enregistrement}}"></i></sup>
 			</label>
 			<div class="col-md-4">
@@ -62,13 +62,13 @@ if (!isConnect()) {
 			</div>
             <!-- Champs texte pour les boutons -->
             <div class="form-group">
-                <label class="col-md-4 control-label">Texte bouton 1</label>
+                <label class="col-md-5 control-label">Texte bouton1</label>
                 <div class="col-md-4">
                     <input type="text" class="configKey form-control" data-l1key="btn1" value="<?= $configs['btn1'] ?>">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-4 control-label">Texte bouton 2</label>
+                <label class="col-md-5 control-label">Texte bouton2</label>
                 <div class="col-md-4">
                     <input type="text" class="configKey form-control" data-l1key="btn2" value="<?= $configs['btn2'] ?>">
                 </div>
@@ -93,11 +93,11 @@ if (!isConnect()) {
         <!-- Aperçu dynamique -->
         <div class="col-lg-6">
             <div class="form-group preview">
-                <label class="col-md-4 control-label">{{Aperçu}}</label>
-                <div class="col-md-7">
+                <label class="col-md-2 control-label">{{Aperçu}}</label>
+                <div class="col-md-6">
                     <div id="preview-container">
                         <div id="preview-counter" style="display: <?= $configs['compteur'] ? 'block' : 'none' ?>">852/<?= $configs['max_car'] ?></div>
-                        <textarea id="preview-area">Pour le texte des boutons vérifiez que ça ne saute pas une ligne ! Un mot de 8 à 12 car. est correct. En retirant le bouton X vous gagnez de la place (on peut fermer la note avec ESC ou clic sur icône).</textarea>
+                        <textarea id="preview-area">Pour le texte des boutons vérifiez que ça ne saute pas une ligne ! Un mot de 8 à 12 car. est correct. En enlevant le bouton X vous gagnez de la place (on peut fermer la note avec ESC ou clic sur icône).</textarea>
                         <div class="preview-btns">
                             <button id="preview-close" class="btn btn-xs btn-success">X</button>
                             <button id="preview-btn1" class="preview-btn btn btn-xs btn-success"><?= $configs['btn1'] ?></button>

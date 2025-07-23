@@ -2,7 +2,7 @@ postit = {
 	config: {bouton_fermer:true, deux_notes:true, compteur:true, max_car:9999, btn1:'URGENT', btn2:'Plus tard'},
 	loadConfig: function(callback) {
 		$.ajax({url: 'plugins/post_it/core/ajax/post_it.ajax.php',
-			data: { action: 'getConfig' }, dataType: 'json',
+			data: { action: 'getConfig' }, dataType: 'json', timeout: 5000,
 			success: ({ state, result }) => {
 				if (state === 'ok') this.config = result;
 				callback();
@@ -10,25 +10,10 @@ postit = {
 		});
 	},
 
-	init: function() {
-		if (window.postItLoaded) return;// ne pas charger en double
-		window.postItLoaded = true;
-		// Configuration dynamique
-		this.loadConfig(() => {
-			this.injectCSS();
-			this.injectHTML();
-			this.adjustPosition();
-			this.setupUI();
-			this.loadNotes();
-			this.bindEvents();
-		});
-		// Gestion du redimensionnement
-		$(window).on('resize', () => this.adjustPosition());
-	},
-
 	injectCSS: function() {
+		if ($('#post_it-style').length) return; // déjà injecté
 		const css = `
-			<style>
+			<style id="post_it-style">
 				#post_itBtn {font-size: 20px;z-index: 10000;}
 				#post_it-container {
 					position:fixed; top:34px; right:24px; z-index:10000;
@@ -107,8 +92,13 @@ postit = {
 	},
 
 	loadNotes: function() {
+		// Charger depuis localStorage immédiatement
+		$('#post_it-area1').val(localStorage.getItem('post_it1') || '');
+		if (this.config.compteur) this.updateCounter($('#post_it-area1'));
+		if (this.config.deux_notes) $('#post_it-area2').val(localStorage.getItem('post_it2') || '');
+		
 		$.ajax({url: 'plugins/post_it/core/ajax/post_it.ajax.php',
-			data: { action: 'loadPostIt' }, dataType: 'json',
+			data: { action: 'loadPostIt' }, dataType: 'json', timeout: 10000,
 			success: ({ state, result }) => {
 				if (state === 'ok') {
 					localStorage.setItem('post_it1', result.note1);
@@ -122,6 +112,22 @@ postit = {
 			},
 			error: () => {jeedomUtils.showAlert({ type: 'error', message: 'Erreur lors du chargement des notes. Vérifiez votre connexion.', level: 'danger' });}
 		});
+	},
+
+	init: function() {
+		if (window.postItLoaded) return;// ne pas charger en double
+		window.postItLoaded = true;
+		// Configuration dynamique
+		this.loadConfig(() => {
+			this.injectCSS();
+			this.injectHTML();
+			this.adjustPosition();
+			this.setupUI();
+			this.loadNotes();
+			this.bindEvents();
+		});
+		// Gestion du redimensionnement
+		$(window).on('resize', () => this.adjustPosition());
 	},
 
 	bindEvents: function() {
@@ -147,7 +153,7 @@ postit = {
 				clearTimeout(window['notesSaveTimeout' + noteId]);
 				window['notesSaveTimeout' + noteId] = setTimeout(() => {
 					$.ajax({type: 'POST',url: 'plugins/post_it/core/ajax/post_it.ajax.php',
-						data: { action: 'savePostIt', noteId, notes },dataType: 'json',
+						data: { action: 'savePostIt', noteId, notes },dataType: 'json', timeout: 10000,
 						success: ({ state, result }) => {
 							if (state === 'error') {
 								jeedomUtils.showAlert({message: `Erreur : ${result || 'Erreur lors de la sauvegarde des notes.'}`,level: 'danger'});
