@@ -86,14 +86,13 @@ postit = {
 		if (!this.config.bouton_fermer) $('#post_it-close').remove();
 		if (!this.config.compteur) $('#post_it-counter').remove();
 		if (!this.config.deux_notes) {
-			$('#post_it-tab2').remove();
+			$('.tab-link').remove();
 			$('#post_it-area2').remove();
 		}
 	},
 
 	loadNotes: function() {
-		// Charger depuis localStorage immédiatement
-		$('#post_it-area1').val(localStorage.getItem('post_it1') || '');
+		$('#post_it-area1').val(localStorage.getItem('post_it1') || '');// Charger depuis localStorage immédiatement
 		if (this.config.compteur) this.updateCounter($('#post_it-area1'));
 		if (this.config.deux_notes) $('#post_it-area2').val(localStorage.getItem('post_it2') || '');
 		
@@ -117,7 +116,6 @@ postit = {
 	init: function() {
 		if (window.postItLoaded) return;// ne pas charger en double
 		window.postItLoaded = true;
-		// Configuration dynamique
 		this.loadConfig(() => {
 			this.injectCSS();
 			this.injectHTML();
@@ -126,7 +124,7 @@ postit = {
 			this.loadNotes();
 			this.bindEvents();
 		});
-		// Gestion du redimensionnement
+		// Gestion du redimensionnement de fenêtre
 		$(window).on('resize', () => this.adjustPosition());
 	},
 
@@ -181,6 +179,5 @@ postit = {
     });
 	}
 };
-
 // Initialisation
 $(document).ready(() => postit.init());
