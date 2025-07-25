@@ -77,8 +77,14 @@ postit = {
 
 	adjustPosition: function() {
 		const $postIt = $('.post_it-item');
-		if ($('.collapse').css('display') === 'none' && $postIt.parent().is('.nav.navbar-nav.navbar-right')) $postIt.detach().insertAfter('.navbar-header #mainMenuHamburgerToggle');
-		if ($('.navbar-toggle').css('display') === 'none' && $postIt.parent().is('.navbar-header')) $postIt.detach().insertAfter('.nav.navbar-nav.navbar-right .hidden-sm.navTime');
+		if ($('.collapse').css('display') === 'none' && $postIt.parent().is('.nav.navbar-nav.navbar-right')) {
+			$postIt.detach().insertAfter('.navbar-header #mainMenuHamburgerToggle');
+			$postIt.removeClass('pull-right');
+		}
+		if ($('.navbar-toggle').css('display') === 'none' && $postIt.parent().is('.navbar-header')) {
+			$postIt.detach().insertAfter('.nav.navbar-nav.navbar-right .hidden-sm.navTime');
+			$postIt.addClass('pull-right');
+		}
 	},
 
 	setupUI: function() {
@@ -92,7 +98,8 @@ postit = {
 	},
 
 	loadNotes: function() {
-		$('#post_it-area1').val(localStorage.getItem('post_it1') || '');// Charger depuis localStorage immédiatement
+		// Charger depuis localStorage immédiatement
+		$('#post_it-area1').val(localStorage.getItem('post_it1') || '');
 		if (this.config.compteur) this.updateCounter($('#post_it-area1'));
 		if (this.config.deux_notes) $('#post_it-area2').val(localStorage.getItem('post_it2') || '');
 		
@@ -116,6 +123,7 @@ postit = {
 	init: function() {
 		if (window.postItLoaded) return;// ne pas charger en double
 		window.postItLoaded = true;
+		// Configuration dynamique
 		this.loadConfig(() => {
 			this.injectCSS();
 			this.injectHTML();
@@ -124,7 +132,7 @@ postit = {
 			this.loadNotes();
 			this.bindEvents();
 		});
-		// Gestion du redimensionnement de fenêtre
+		// Gestion du redimensionnement
 		$(window).on('resize', () => this.adjustPosition());
 	},
 
@@ -179,5 +187,6 @@ postit = {
     });
 	}
 };
+
 // Initialisation
 $(document).ready(() => postit.init());
