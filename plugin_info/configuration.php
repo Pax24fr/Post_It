@@ -134,4 +134,7 @@ $(function() {
         }
     });
 });
+document.querySelectorAll('#preview-container button').forEach(btn => {
+    btn.addEventListener('click', e => e.preventDefault());
+});
 </script>
