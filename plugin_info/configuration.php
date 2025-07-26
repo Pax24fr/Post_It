@@ -109,7 +109,7 @@ if (!isConnect()) {
         </div>
     </fieldset>
 </form>
-?>
+
 <script>
 $(function() {
     $('.configKey').on('change input', function() {
