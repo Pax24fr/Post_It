@@ -14,7 +14,8 @@ postit = {
 		if ($('#post_it-style').length) return; // déjà injecté
 		const css = `
 			<style id="post_it-style">
-				#post_itBtn {font-size: 20px;z-index: 10000;}
+				.post_itDesktop {font-size: 20px;z-index: 10000;}
+				.post_itMobile {font-size: 24px!important;z-index: 10000;}
 				#post_it-container {
 					position:fixed; top:34px; right:24px; z-index:10000;
 					width:220px;
@@ -44,7 +45,7 @@ postit = {
 	injectHTML: function() {
 		const html = `
 			<div class="navbar-brand pull-right post_it-item">
-				<a href="#" id="post_itBtn" title="Ouvrir le pense-bête"><i class="fas fa-sticky-note icon_yellow"></i></a>
+				<a href="#" id="post_itBtn" class="post_itDesktop" title="Ouvrir le pense-bête"><i class="fas fa-sticky-note icon_yellow"></i></a>
 				<div id="post_it-container" style="display:none;">
 					<div id="post_it-counter">0/${this.config.max_car}</div>
 					<textarea id="post_it-area1" class="post_it-area active" placeholder="Tapez vos notes ici..."></textarea>
@@ -80,10 +81,14 @@ postit = {
 		if ($('.collapse').css('display') === 'none' && $postIt.parent().is('.nav.navbar-nav.navbar-right')) {
 			$postIt.detach().insertAfter('.navbar-header #mainMenuHamburgerToggle');
 			$postIt.removeClass('pull-right');
+			$('#post_itBtn').removeClass('post_itDesktop');
+			$('#post_itBtn').addClass('post_itMobile');
 		}
 		if ($('.navbar-toggle').css('display') === 'none' && $postIt.parent().is('.navbar-header')) {
 			$postIt.detach().insertAfter('.nav.navbar-nav.navbar-right .hidden-sm.navTime');
 			$postIt.addClass('pull-right');
+			$('#post_itBtn').removeClass('post_itMobile');
+			$('#post_itBtn').addClass('post_itDesktop');
 		}
 	},
 
