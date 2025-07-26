@@ -14,30 +14,64 @@ postit = {
 		if ($('#post_it-style').length) return; // déjà injecté
 		const css = `
 			<style id="post_it-style">
-				#post_itBtn {font-size: 20px;z-index: 10000;}
-				#post_it-container {
-					position:fixed; top:34px; right:24px; z-index:10000;
-					width:220px;
-					padding:6px;
-					background: #fffad0;
-					border:2px solid #ddd;
-					box-shadow:0 5px 10px rgba(0,0,0,0.1);
-					font-family: 'Roboto', sans-serif;
-				}
-				#post_it-counter {
-					position: absolute; top: 0px; right: 4px; font-size: 9px;
-				}
-				#post_it-area1, #post_it-area2 {
-					width:100%; height:138px;
-					margin-top:8px;margin-bottom:5px;
-					background: transparent !important;
-				}
-				.post_it-area {
-					display: none;
-				}
-				.post_it-area.active {
-					display: block;
-				}
+              #post_itBtn {font-size: 20px;z-index: 10000;}
+              #post_it-container {
+                position:fixed; top:34px; right:24px; z-index:10000;
+				width:220px;                
+                padding:6px;
+                background: linear-gradient(145deg, #fffad0, #fff9a0);
+                border: 1px solid #e0d890;
+                box-shadow:0 5px 10px rgba(0,0,0,0.1);
+                font-family: 'Roboto', sans-serif;
+                border-radius: 6px;
+                transform: rotate(-2deg);
+                transition: transform 0.3s ease;
+                overflow: hidden;
+              }
+
+              #post_it-container::before {
+                content: "";
+                position: absolute;
+                top: -6px;
+                left: 50%;
+                transform: translateX(-50%) rotate(-3deg);
+                width: 60px;
+                height: 12px;
+                background: rgba(200, 200, 200, 0.4);
+                border-radius: 4px;
+                box-shadow: 0 0 2px rgba(0,0,0,0.2);
+              }
+              
+              #post_it-container::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                width: 32px;
+                height: 32px;
+                background: linear-gradient(-45deg, #fffad0 0%, #fff38a 50%, #ddd096 100%);
+                clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+                box-shadow: -2px -2px 3px rgba(0, 0, 0, 0.1);
+              }
+
+              #post_it-container:hover {
+                transform: rotate(-1deg);
+              }
+
+              #post_it-counter {
+                position: absolute; top: 0px; right: 4px; font-size: 9px;
+              }
+              #post_it-area1, #post_it-area2 {
+              	width:100%; height:138px;
+				margin-top:8px;margin-bottom:5px;
+				background: transparent !important;
+              }
+              .post_it-area {
+                display: none;
+              }
+              .post_it-area.active {
+                display: block;
+              }
 			</style>`;
 		$('head').append(css);
 	},
@@ -57,6 +91,9 @@ postit = {
 				</div>
 			</div>`;
 		$('.nav.navbar-nav.navbar-right .hidden-sm.navTime').after(html);
+		// rendre le post-it déplaçable
+		this.makeDraggable();
+      	this.restorePosition();
 	},
 
 	updateCounter: function($textarea) {
@@ -135,6 +172,58 @@ postit = {
 		// Gestion du redimensionnement
 		$(window).on('resize', () => this.adjustPosition());
 	},
+
+    makeDraggable: function() {
+        const $el = $('#post_it-container');
+
+        let isDragging = false;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        // Déclenchement du drag (hors boutons et textarea)
+        $el.on('mousedown.postitDrag', function(e) {
+            if ($(e.target).is('textarea, button')) return;
+            isDragging = true;
+            offsetX = e.clientX - $el.offset().left;
+            offsetY = e.clientY - $el.offset().top;
+            $el.css('transition', 'none'); // désactive les transitions pendant le drag
+            e.preventDefault();
+        });
+
+        $(document).on('mousemove.postitDrag', function(e) {
+            if (isDragging) {
+                $el.css({
+                    left: (e.clientX - offsetX) + 'px',
+                    top: (e.clientY - offsetY) + 'px',
+                    right: 'auto'
+                });
+            }
+        });
+
+        $(document).on('mouseup.postitDrag', function() {
+            isDragging = false;
+          
+          	// Sauvegarder la position
+            const position = {
+                top: $el.css('top'),
+                left: $el.css('left')
+            };
+            localStorage.setItem('post_it_position', JSON.stringify(position));
+        });
+    },
+
+    restorePosition: function() {
+        const savedPosition = localStorage.getItem('post_it_position');
+        if (savedPosition) {
+            const { top, left } = JSON.parse(savedPosition);
+            const $el = $('#post_it-container');
+            $el.css({
+                top,
+                left,
+                right: 'auto'
+            });
+        }
+    },
 
 	bindEvents: function() {
 		$(document)

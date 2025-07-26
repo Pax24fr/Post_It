@@ -76,18 +76,54 @@ if (!isConnect()) {
         </div>
 
 		<style>
-			#preview-container {
-				position: relative; width: 220px; padding: 6px; margin-top: 10px; font-family: Roboto, sans-serif;
-				background: #fffad0; 
-				border: 2px solid #ddd; 
-				box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-			}
-			#preview-area {
-				width: 100%; height: 138px; margin-top: 8px; margin-bottom: 5px;
+              #preview-container {
+                position: relative; width: 220px; padding: 6px;
+                top: 0px;
+                right: 10px;
+                background: linear-gradient(145deg, #fffad0, #fff9a0);
+                border: 1px solid #e0d890;
+                box-shadow:0 5px 10px rgba(0,0,0,0.1);
+                border-radius: 6px;
+                transform: rotate(-2deg);
+                overflow: hidden;
+              }
+
+              #preview-container::before {
+                content: "";
+                position: absolute;
+                top: -6px;
+                left: 50%;
+                transform: translateX(-50%) rotate(-3deg);
+                width: 60px;
+                height: 12px;
+                background: rgba(200, 200, 200, 0.4);
+                border-radius: 4px;
+                box-shadow: 0 0 2px rgba(0,0,0,0.2);
+              }
+
+              #preview-container::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                width: 32px;
+                height: 32px;
+                background: linear-gradient(-45deg, #fffad0 0%, #fff38a 50%, #ddd096 100%);
+                clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+                box-shadow: -2px -2px 3px rgba(0, 0, 0, 0.1);
+              }
+              #preview-area {
+              	width: 100%; height: 138px; margin-top: 8px; margin-bottom: 5px;
 				background: transparent !important;
-			}
-			#preview-counter {position: absolute; top: 0px; right: 4px; font-size: 9px;}
-			#preview-close {display: <?= $configs['bouton_fermer'] ? 'unset' : 'none' ?>;}
+              }
+              #preview-counter {position: absolute; top: 0px; right: 4px; font-size: 9px}
+              #preview-close {display: <?= $configs['bouton_fermer'] ? 'unset' : 'none' ?>;}
+                                            
+              .btn[disabled] {
+				pointer-events: auto;
+				opacity: 1;
+              }
+
 			.preview-btn {display: <?= $configs['deux_notes'] ? 'initial' : 'none' ?>;}
 		</style>        
         <!-- Aperçu dynamique -->
@@ -99,9 +135,9 @@ if (!isConnect()) {
                         <div id="preview-counter" style="display: <?= $configs['compteur'] ? 'block' : 'none' ?>">852/<?= $configs['max_car'] ?></div>
                         <textarea id="preview-area">Pour le texte des boutons vérifiez que ça ne saute pas une ligne ! Un mot de 8 à 12 car. est correct. En enlevant le bouton X vous gagnez de la place (on peut fermer la note avec ESC ou clic sur icône).</textarea>
                         <div class="preview-btns">
-                            <button id="preview-close" class="btn btn-xs btn-success">X</button>
-                            <button id="preview-btn1" class="preview-btn btn btn-xs btn-success"><?= $configs['btn1'] ?></button>
-                            <button id="preview-btn2" class="preview-btn btn btn-xs"><?= $configs['btn2'] ?></button>
+                            <button id="preview-close" disabled class="btn btn-xs btn-success">X</button>
+                            <button id="preview-btn1" disabled class="preview-btn btn btn-xs btn-success"><?= $configs['btn1'] ?></button>
+                            <button id="preview-btn2" disabled class="preview-btn btn btn-xs"><?= $configs['btn2'] ?></button>
                         </div>
                     </div>
                 </div>
@@ -109,7 +145,7 @@ if (!isConnect()) {
         </div>
     </fieldset>
 </form>
-?>
+
 <script>
 $(function() {
     $('.configKey').on('change input', function() {
