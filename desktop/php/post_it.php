@@ -23,9 +23,9 @@
 		<ul>
 			<li>1 ou 2 notes : Vous pouvez ajouter une seconde note pour des choses moins urgentes par exemple.</li>
 			<li>Compteur : Affiche le nombre de caractères de la note.</li>
-			<li>Bouton fermer : Permet de fermer le post-it en plus de la touche ESC ou du clic sur l'icône Post It.</li>
+			<li>Bouton fermer : Permet de fermer le post-it en plus de la touche ESC ou du clic/appui sur l'icône Post It.</li>
 			<li>Taille max des notes : Taille maximale des notes en caractères pour ne pas surcharger votre interface.</li>
-			<li>Texte des bouton d'onglets personnalisable.</li>
+			<li>Texte des bouton d'onglets (nom de la note) personnalisable.</li>
 		</ul>
 		<h4>Support</h4>
 		En cas de problème, vérifiez votre connexion réseau ou consultez les logs du plugin.
