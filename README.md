@@ -3,10 +3,14 @@
 ## Utilisation
 Cliquez sur l'icône dans la barre de navigation pour ouvrir/fermer le post-it.  
 Saisissez vos notes dans le champ texte. 
-Elles sont sauvegardées automatiquement 2 secondes après la dernière saisie.  
+Elles sont sauvegardées automatiquement 2 secondes après la dernière saisie (table config).  
 Les notes sont synchronisées via localStorage en temps réel entre les différents onglets/fenêtres d'un même appareil.  
 Elles sont également synchronisées entre différents appareils (par ex: mobile et PC) mais uniquement sur rafraîchissement de la page.  
-NB : Elles seront effacées si vous désactivez/désinstallez le plugin.
+Nota Bene :
+- Elles ne seront pas effacées si vous videz le cache.
+- Elles sont sauvegardées dans le backup, donc restaurables. 
+- Elles ne seront effacées que si vous désactivez/désinstallez le plugin.
+
 ## Options
 - 1 ou 2 notes : Vous pouvez ajouter une seconde note pour des choses moins urgentes par exemple.
 - Compteur : Affiche le nombre de caractères de la note.

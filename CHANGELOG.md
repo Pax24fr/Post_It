@@ -1,9 +1,6 @@
 # CHANGELOG
 
-## [1.0] - 2025-07-24
+## [1.1] - 2025-12-16
 
 ### Ajouts
-- Version stable
-
-### Ajouts précédents
-- 2ème note
+- Persistance des notes même si cache vidé

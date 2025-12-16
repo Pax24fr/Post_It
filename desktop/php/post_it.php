@@ -15,10 +15,12 @@
 		<br>Ce plugin ajoute un pense-bête au bout de la barre de navigation de Jeedom.
 		<h4>Utilisation</h4>
 		Cliquez sur l'icône dans la barre de navigation pour ouvrir/fermer le post-it.
-		<br>Saisissez vos notes dans le champ texte. Elles sont sauvegardées automatiquement 2 secondes après la dernière saisie.
+		<br>Saisissez vos notes dans le champ texte. Elles sont sauvegardées automatiquement 2 secondes après la dernière saisie (table config).
 		<br><br>Les notes sont synchronisées via localStorage en temps réel entre les différents onglets/fenêtres d'un même appareil.
 		<br>Elles sont également synchronisées entre différents appareils (par ex: mobile et PC) mais uniquement sur rafraîchissement de la page.
-		<br><br>Elles seront effacées si vous désactivez/désinstallez le plugin.
+		<br><br>Elles ne seront pas effacées si vous videz le cache.
+		<br>Elles sont sauvegardées dans le backup, donc restaurables. 
+		<br>Elles ne seront effacées que si vous désactivez/désinstallez le plugin.
 		<h4>Options</h4>
 		<ul>
 			<li>1 ou 2 notes : Vous pouvez ajouter une seconde note pour des choses moins urgentes par exemple.</li>

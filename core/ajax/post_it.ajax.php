@@ -5,8 +5,8 @@ try {
 
 	if (init('action') == 'loadPostIt') {
 		ajax::success([
-			'note1' => cache::byKey('post_it1')->getValue(''),
-			'note2' => cache::byKey('post_it2')->getValue('')
+			'note1' => config::byKey('note1', 'post_it'),
+			'note2' => config::byKey('note2', 'post_it')
 		]);
 	}
 
@@ -14,7 +14,7 @@ try {
 		$noteId = init('noteId'); $notes = init('notes');
 		$max_car = (int)config::byKey('max_car', 'post_it', 9999);
 		if (mb_strlen($notes) > $max_car) ajax::error('La note dépasse la taille maximale autorisée ('.$max_car.' caractères)');
-		cache::set('post_it'.$noteId, $notes, 0);
+		config::save('note'.$noteId, $notes, 'post_it');
 		ajax::success();
 	}
 

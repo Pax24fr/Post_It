@@ -14,7 +14,6 @@ function post_it_update() {
 }
 
 function post_it_remove() {
-    cache::delete('post_it');
-    log::add('post_it', 'info', 'Désinstallation : Cache post_it supprimé');
+    log::add('post_it', 'info', 'Désinstallation : post_it supprimé');
 }
 ?>

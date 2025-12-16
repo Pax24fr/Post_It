@@ -99,8 +99,8 @@ if (!isConnect()) {
                         <div id="preview-counter" style="display: <?= $configs['compteur'] ? 'block' : 'none' ?>">852/<?= $configs['max_car'] ?></div>
                         <textarea id="preview-area">Pour le texte des boutons vérifiez que ça ne saute pas une ligne ! Un mot de 8 à 12 car. est correct. En enlevant le bouton X vous gagnez de la place (on peut fermer la note avec ESC ou clic sur icône).</textarea>
                         <div class="preview-btns">
-                            <button id="preview-close" class="btn btn-xs btn-success">X</button>
-                            <button id="preview-btn1" class="preview-btn btn btn-xs btn-success"><?= $configs['btn1'] ?></button>
+                            <button id="preview-close" class="btn btn-xs btn-success" >X</button>
+                            <button id="preview-btn1" class="preview-btn btn btn-xs btn-success" ><?= $configs['btn1'] ?></button>
                             <button id="preview-btn2" class="preview-btn btn btn-xs"><?= $configs['btn2'] ?></button>
                         </div>
                     </div>
@@ -109,7 +109,6 @@ if (!isConnect()) {
         </div>
     </fieldset>
 </form>
-?>
 <script>
 $(function() {
     $('.configKey').on('change input', function() {
