@@ -1,6 +1,7 @@
 # CHANGELOG
 
-## [1.1] - 2025-12-16
+## [1.2] - 2026-07-09
+- Ajout fichier class vide pour éviter une erreur dans les log Jeedom
 
-### Ajouts
+### Ajouts précédents
 - Persistance des notes même si cache vidé
